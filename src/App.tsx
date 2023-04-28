@@ -1,25 +1,27 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import "./App.css";
+import { DAppProvider, ChainId } from "@usedapp/core";
+import { Header } from "./components/Header";
+import Container from "@mui/material/Container";
+import { Main } from "./components/Main";
+import { ThemeProvider } from "@mui/styles";
+import { useTheme } from "@mui/material/styles";
 
 function App() {
+  const theme = useTheme();
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeProvider theme={theme}>
+      <DAppProvider
+        config={{
+          supportedChains: [ChainId.Sepolia, 1337],
+        }}
+      >
+        <Header />
+        <Container maxWidth="sm">
+          <Main />
+        </Container>
+      </DAppProvider>
+    </ThemeProvider>
   );
 }
 
